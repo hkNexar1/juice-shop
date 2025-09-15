@@ -1,0 +1,28 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  codeql-analysis:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: javascript
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      - name: Run CodeQL analysis
+        uses: github/codeql-action/analyze@v2
